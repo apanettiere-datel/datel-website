@@ -8,7 +8,7 @@ import { AlertTriangleIcon } from '../icons/alert-triangle-icon'
 import { ChatBubbleCircleIcon } from '../icons/chat-bubble-circle-icon'
 import { CogIcon } from '../icons/cog-icon'
 
-const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
+const turnstileSiteKey = (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? '').trim()
 
 const contactTeams = {
   sales: {

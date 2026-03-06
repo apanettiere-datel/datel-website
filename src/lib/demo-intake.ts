@@ -1,52 +1,51 @@
-type ContactIntakeInput = {
-  team: 'sales' | 'support'
+type DemoIntakeInput = {
   firstName: string
   lastName: string
   company: string
   email: string
-  phone?: string
-  message: string
+  country?: string
+  phoneNumber?: string
+  preferredDate: string
+  preferredTime: string
+  timezone: string
+  message?: string
   ipAddress: string
 }
 
-const defaultRecipients: Record<ContactIntakeInput['team'], string> = {
-  sales: 'sales@datel-group.com',
-  support: 'support@datel-group.com',
-}
+const defaultDemoRecipient = 'sales@datel-group.com'
 
 function getEnvValue(key: string) {
   return (process.env[key] ?? '').trim()
 }
 
-function formatContactEmailBody(input: ContactIntakeInput) {
+function formatDemoEmailBody(input: DemoIntakeInput) {
   return [
-    'Website contact request',
+    'Website demo request',
     '',
-    `Team: ${input.team === 'support' ? 'Support' : 'Sales'}`,
     `Name: ${`${input.firstName} ${input.lastName}`.trim()}`,
     `Company: ${input.company}`,
     `Email: ${input.email}`,
-    `Phone: ${input.phone || 'Not provided'}`,
+    `Phone: ${input.country || 'US'} ${input.phoneNumber || 'Not provided'}`,
+    `Preferred date: ${input.preferredDate}`,
+    `Preferred time: ${input.preferredTime}`,
+    `Timezone: ${input.timezone}`,
     `IP Address: ${input.ipAddress}`,
     '',
-    'Message:',
-    input.message,
+    'Notes:',
+    input.message || 'No additional notes.',
   ].join('\n')
 }
 
-async function sendContactEmail(input: ContactIntakeInput) {
+async function sendDemoEmail(input: DemoIntakeInput) {
   const resendApiKey = getEnvValue('RESEND_API_KEY')
 
   if (!resendApiKey) {
     throw new Error('Contact service is not configured. Add RESEND_API_KEY to enable email delivery.')
   }
 
-  const toEmail =
-    input.team === 'support'
-      ? getEnvValue('CONTACT_SUPPORT_EMAIL') || defaultRecipients.support
-      : getEnvValue('CONTACT_SALES_EMAIL') || defaultRecipients.sales
+  const toEmail = getEnvValue('DEMO_REQUEST_EMAIL') || getEnvValue('CONTACT_SALES_EMAIL') || defaultDemoRecipient
   const fromEmail = getEnvValue('CONTACT_FROM_EMAIL') || 'DATEL Website <onboarding@resend.dev>'
-  const subject = `${input.team === 'support' ? 'Support' : 'Sales'} request from ${input.firstName} ${input.lastName}`.trim()
+  const subject = `Demo request from ${input.firstName} ${input.lastName} (${input.preferredDate} ${input.preferredTime})`.trim()
 
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -59,7 +58,7 @@ async function sendContactEmail(input: ContactIntakeInput) {
       to: [toEmail],
       reply_to: input.email,
       subject,
-      text: formatContactEmailBody(input),
+      text: formatDemoEmailBody(input),
     }),
     cache: 'no-store',
   })
@@ -70,6 +69,6 @@ async function sendContactEmail(input: ContactIntakeInput) {
   }
 }
 
-export async function processContactIntake(input: ContactIntakeInput) {
-  await sendContactEmail(input)
+export async function processDemoIntake(input: DemoIntakeInput) {
+  await sendDemoEmail(input)
 }

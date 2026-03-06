@@ -1,15 +1,18 @@
-import { processContactIntake } from '@/lib/contact-intake'
+import { processDemoIntake } from '@/lib/demo-intake'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const runtime = 'nodejs'
 
-type ContactRequestBody = {
-  team?: string
+type ScheduleDemoRequestBody = {
   firstName?: string
   lastName?: string
   company?: string
   email?: string
-  phone?: string
+  country?: string
+  phoneNumber?: string
+  preferredDate?: string
+  preferredTime?: string
+  timezone?: string
   message?: string
   website?: string
   submittedAt?: number
@@ -28,11 +31,11 @@ type RateLimitEntry = {
 
 declare global {
   // eslint-disable-next-line no-var
-  var __contactRateLimitStore: Map<string, RateLimitEntry> | undefined
+  var __scheduleDemoRateLimitStore: Map<string, RateLimitEntry> | undefined
 }
 
-const rateLimitStore = globalThis.__contactRateLimitStore ?? new Map<string, RateLimitEntry>()
-globalThis.__contactRateLimitStore = rateLimitStore
+const rateLimitStore = globalThis.__scheduleDemoRateLimitStore ?? new Map<string, RateLimitEntry>()
+globalThis.__scheduleDemoRateLimitStore = rateLimitStore
 
 function getClientIp(request: NextRequest) {
   const forwardedFor = request.headers.get('x-forwarded-for')
@@ -100,10 +103,10 @@ async function verifyTurnstile(token: string, ipAddress: string) {
 }
 
 export async function POST(request: NextRequest) {
-  let payload: ContactRequestBody
+  let payload: ScheduleDemoRequestBody
 
   try {
-    payload = (await request.json()) as ContactRequestBody
+    payload = (await request.json()) as ScheduleDemoRequestBody
   } catch {
     return NextResponse.json({ error: 'Invalid request payload.' }, { status: 400 })
   }
@@ -111,7 +114,6 @@ export async function POST(request: NextRequest) {
   const ipAddress = getClientIp(request)
   const now = Date.now()
 
-  // Honeypot trap: quietly drop likely bot submissions.
   const website = normalizeValue(payload.website)
   if (website) {
     return NextResponse.json({ ok: true })
@@ -125,14 +127,16 @@ export async function POST(request: NextRequest) {
   const lastName = normalizeValue(payload.lastName)
   const company = normalizeValue(payload.company)
   const email = normalizeValue(payload.email)
-  const phone = normalizeValue(payload.phone)
+  const country = normalizeValue(payload.country)
+  const phoneNumber = normalizeValue(payload.phoneNumber)
+  const preferredDate = normalizeValue(payload.preferredDate)
+  const preferredTime = normalizeValue(payload.preferredTime)
+  const timezone = normalizeValue(payload.timezone)
   const message = normalizeValue(payload.message)
-  const teamValue = normalizeValue(payload.team).toLowerCase()
-  const team = teamValue === 'support' ? 'support' : 'sales'
   const submittedAt = Number(payload.submittedAt ?? 0)
   const captchaToken = normalizeValue(payload.captchaToken)
 
-  if (!firstName || !lastName || !company || !email || !message) {
+  if (!firstName || !lastName || !company || !email || !preferredDate || !preferredTime || !timezone) {
     return NextResponse.json({ error: 'Please complete all required fields.' }, { status: 400 })
   }
 
@@ -150,19 +154,22 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    await processContactIntake({
-      team,
+    await processDemoIntake({
       firstName,
       lastName,
       company,
       email,
-      phone,
+      country,
+      phoneNumber,
+      preferredDate,
+      preferredTime,
+      timezone,
       message,
       ipAddress,
     })
   } catch (error) {
-    console.error('Contact submission failed', error)
-    return NextResponse.json({ error: 'Unable to send your message right now. Please try again.' }, { status: 500 })
+    console.error('Schedule demo submission failed', error)
+    return NextResponse.json({ error: 'Unable to send your demo request right now. Please try again.' }, { status: 500 })
   }
 
   return NextResponse.json({ ok: true })
