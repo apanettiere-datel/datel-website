@@ -3,7 +3,7 @@
   "name": "datel-website",
   "main": ".open-next/worker.js",
   "build": {
-    "command": "npx opennextjs-cloudflare build"
+    "command": "npm run cf:build"
   },
   "compatibility_date": "2026-03-06",
   "compatibility_flags": [

@@ -4,8 +4,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "preview": "npx opennextjs-cloudflare build && npx opennextjs-cloudflare preview",
-    "deploy": "npx opennextjs-cloudflare build && npx opennextjs-cloudflare deploy",
+    "cf:build": "opennextjs-cloudflare build",
+    "preview": "npm run cf:build && opennextjs-cloudflare preview",
+    "deploy": "npm run cf:build && opennextjs-cloudflare deploy",
     "start": "next start",
     "lint": "eslint"
   },
@@ -32,6 +33,7 @@
     "tailwindcss": "^4.2.0"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.17.1",
     "@tailwindcss/postcss": "^4.2.0",
     "@types/node": "^20",
     "@types/react": "^19",
