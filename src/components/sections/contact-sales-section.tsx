@@ -64,8 +64,9 @@ export function ContactSalesSection() {
     event.preventDefault()
 
     if (submitting) return
+    const form = event.currentTarget
 
-    const formData = new FormData(event.currentTarget)
+    const formData = new FormData(form)
     const firstName = getValue(formData, 'first-name')
     const lastName = getValue(formData, 'last-name')
     const company = getValue(formData, 'company')
@@ -104,7 +105,7 @@ export function ContactSalesSection() {
       }
 
       setSubmitted(true)
-      event.currentTarget.reset()
+      form.reset()
       setStartedAt(Date.now())
     } catch (error) {
       setSubmitted(false)

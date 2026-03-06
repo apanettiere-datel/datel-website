@@ -1,4 +1,5 @@
 import { processDemoIntake } from '@/lib/demo-intake'
+import { getRuntimeEnvValue } from '@/lib/runtime-env'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const runtime = 'nodejs'
@@ -74,7 +75,7 @@ function isRateLimited(ipAddress: string, now: number) {
 }
 
 async function verifyTurnstile(token: string, ipAddress: string) {
-  const secretKey = normalizeValue(process.env.TURNSTILE_SECRET_KEY)
+  const secretKey = normalizeValue(await getRuntimeEnvValue('TURNSTILE_SECRET_KEY'))
   if (!secretKey) return true
   if (!token) return false
 
@@ -169,7 +170,8 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Schedule demo submission failed', error)
-    return NextResponse.json({ error: 'Unable to send your demo request right now. Please try again.' }, { status: 500 })
+    const message = error instanceof Error ? error.message : 'Unable to send your demo request right now. Please try again.'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 
   return NextResponse.json({ ok: true })

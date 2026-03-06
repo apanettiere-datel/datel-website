@@ -1,3 +1,6 @@
+import { normalizeFromAddress } from './email-address'
+import { getRuntimeEnvValue } from './runtime-env'
+
 type DemoIntakeInput = {
   firstName: string
   lastName: string
@@ -13,10 +16,6 @@ type DemoIntakeInput = {
 }
 
 const defaultDemoRecipient = 'sales@datel-group.com'
-
-function getEnvValue(key: string) {
-  return (process.env[key] ?? '').trim()
-}
 
 function formatDemoEmailBody(input: DemoIntakeInput) {
   return [
@@ -37,14 +36,17 @@ function formatDemoEmailBody(input: DemoIntakeInput) {
 }
 
 async function sendDemoEmail(input: DemoIntakeInput) {
-  const resendApiKey = getEnvValue('RESEND_API_KEY')
+  const resendApiKey = await getRuntimeEnvValue('RESEND_API_KEY')
 
   if (!resendApiKey) {
     throw new Error('Contact service is not configured. Add RESEND_API_KEY to enable email delivery.')
   }
 
-  const toEmail = getEnvValue('DEMO_REQUEST_EMAIL') || getEnvValue('CONTACT_SALES_EMAIL') || defaultDemoRecipient
-  const fromEmail = getEnvValue('CONTACT_FROM_EMAIL') || 'DATEL Website <onboarding@resend.dev>'
+  const toEmail = (await getRuntimeEnvValue('DEMO_REQUEST_EMAIL')) || (await getRuntimeEnvValue('CONTACT_SALES_EMAIL')) || defaultDemoRecipient
+  const fromEmail = normalizeFromAddress(
+    await getRuntimeEnvValue('CONTACT_FROM_EMAIL'),
+    'DATEL Website <onboarding@resend.dev>',
+  )
   const subject = `Demo request from ${input.firstName} ${input.lastName} (${input.preferredDate} ${input.preferredTime})`.trim()
 
   const response = await fetch('https://api.resend.com/emails', {
