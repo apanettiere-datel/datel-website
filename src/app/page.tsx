@@ -7,7 +7,6 @@ import { ArrowNarrowRightIcon } from '@/components/icons/arrow-narrow-right-icon
 import { FAQsTwoColumnAccordion, Faq } from '@/components/sections/faqs-two-column-accordion'
 import { Feature, FeaturesTwoColumnWithDemos } from '@/components/sections/features-two-column-with-demos'
 import { HeroLeftAlignedWithDemo } from '@/components/sections/hero-left-aligned-with-demo'
-import { Plan, PricingMultiTier } from '@/components/sections/pricing-multi-tier'
 import { Stat, StatsWithGraph } from '@/components/sections/stats-with-graph'
 import { Testimonial, TestimonialThreeColumnGrid } from '@/components/sections/testimonials-three-column-grid'
 
@@ -28,13 +27,13 @@ export default function Page() {
               className="h-16 w-auto sm:h-20"
             />
             <Link
-              href="/pricing"
+              href="/contact?team=sales#contact"
               className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#ffd8a0] bg-[#fff7eb] p-1 pr-4 text-sm/6 transition-colors hover:bg-[#fff0d2]"
             >
-              <span className="rounded-full bg-[#FF9F01] px-3 py-1 text-xs/5 font-semibold tracking-wide text-white uppercase">What's new</span>
-              <span className="font-medium text-[#123458]">Cloud SWEET platform updates</span>
+              <span className="rounded-full bg-[#FF9F01] px-3 py-1 text-xs/5 font-semibold tracking-wide text-white uppercase">Need Pricing?</span>
+              <span className="font-medium text-[#123458]">Call DATEL for package guidance</span>
               <span className="inline-flex items-center font-semibold text-[#4f6781]">
-                View plans
+                Contact sales
                 <ArrowNarrowRightIcon className="ml-2" />
               </span>
             </Link>
@@ -43,9 +42,9 @@ export default function Page() {
         headline={<span className="text-[#015596]">Track every call with Cloud SWEET real-time analytics.</span>}
         subheadline={
           <p>
-            Introducing Cloud SWEET, a cost-effective managed service for tracking call activity. There are no hidden
-            hardware or software costs. Cloud SWEET is hosted by DATEL and managed by DATEL, so teams can launch in
-            minutes and start using call analytics right away.
+            Cloud SWEET starts with a core reporting package per domain, then scales with add-ons for call recording,
+            transcription summarization, real-time queue visibility, and AI analytics. The platform is hosted and
+            managed by DATEL so teams can launch quickly without infrastructure overhead.
           </p>
         }
         cta={
@@ -54,8 +53,8 @@ export default function Page() {
               Schedule demo
             </SoftButtonLink>
 
-            <ButtonLink href="/pricing" size="lg">
-              View pricing <ArrowNarrowRightIcon />
+            <ButtonLink href="/contact?team=sales#contact" size="lg">
+              Call DATEL <ArrowNarrowRightIcon />
             </ButtonLink>
           </div>
         }
@@ -75,11 +74,11 @@ export default function Page() {
       <FeaturesTwoColumnWithDemos
         id="features"
         eyebrow="Built for Cloud SWEET teams"
-        headline="Real-time visibility and flexible reporting in one hosted workspace."
+        headline="Base reporting plus modular add-ons in one hosted workspace."
         subheadline={
           <p>
-            See call activity as calls complete, run reports on demand, and drill from summary dashboards into detailed
-            call events for extensions and call center groups.
+            Start with core reporting and analytics, then activate recording, transcription, real-time operations, and
+            AI modules based on your operational goals.
           </p>
         }
         features={
@@ -99,12 +98,12 @@ export default function Page() {
               headline="Real-time call monitoring and queue control"
               subheadline={
                 <p>
-                  Monitor volume, distribution, and agent states in real-time. Drill down from high-level metrics to
-                  detailed call events so teams can resolve issues quickly.
+                  Add real-time agent and queue views when teams need live operational control. Supervisors can monitor
+                  activity as calls happen and respond faster to service-level pressure.
                 </p>
               }
               cta={
-                <Link href="/pricing">
+                <Link href="/contact?team=sales#contact">
                   Explore features <ArrowNarrowRightIcon />
                 </Link>
               }
@@ -124,13 +123,13 @@ export default function Page() {
               headline="Trend analysis for staffing and cost control"
               subheadline={
                 <p>
-                  Identify peak call periods, staffing gaps, and cost drivers with text and graphical reports. Add AI
-                  licensing when you want deeper automated insights.
+                  Expand from standard reporting into transcription summarization and AI analytics for deeper trend
+                  visibility. Use usage-based modules only where they deliver value to your operation.
                 </p>
               }
               cta={
-                <Link href="/pricing#comparison">
-                  Compare add-ons <ArrowNarrowRightIcon />
+                <Link href="/contact?team=sales#contact">
+                  Discuss add-ons <ArrowNarrowRightIcon />
                 </Link>
               }
             />
@@ -141,11 +140,11 @@ export default function Page() {
       <StatsWithGraph
         id="stats"
         eyebrow="Operational impact"
-        headline="Increase productivity, reduce costs, and identify trends faster."
+        headline="Align capabilities to each contact center without overbuying."
         subheadline={
           <p>
-            Cloud SWEET helps leaders and supervisors track all call activity, manage staffing with confidence, and
-            share export-ready reports without infrastructure overhead.
+            Cloud SWEET combines base reporting with optional modules so teams can match platform scope to real
+            operational needs, then expand as usage and complexity grow.
           </p>
         }
       >
@@ -198,8 +197,8 @@ export default function Page() {
       <FAQsTwoColumnAccordion id="faqs" headline="Questions and answers">
         <Faq
           id="faq-1"
-          question="Are there hidden infrastructure costs?"
-          answer="No. Cloud SWEET is hosted and managed by DATEL, so there are no extra hardware or software requirements to get started."
+          question="How does Cloud SWEET packaging work?"
+          answer="Cloud SWEET uses a base reporting package per domain with optional add-ons for recording, transcription, real-time views, and AI analytics. You only enable modules you need."
         />
         <Faq
           id="faq-2"
@@ -208,81 +207,35 @@ export default function Page() {
         />
         <Faq
           id="faq-3"
-          question="Can we schedule reports and export data?"
-          answer="Yes. You can schedule reports to save time and export data to PDF or Excel for sharing with stakeholders."
+          question="Are some modules usage-based or dependency-based?"
+          answer="Yes. Transcription and storage modules are usage-sensitive, and some AI features require recording and transcription to be enabled."
         />
         <Faq
           id="faq-4"
-          question="What support is included?"
-          answer="The first year of maintenance and support is included, with technical support by phone, email, and web plus access to product resources."
+          question="Can we schedule reports and export data?"
+          answer="Yes. Teams can schedule recurring reports, run ad hoc analysis, and export to PDF or Excel for leadership and operations reviews."
         />
       </FAQsTwoColumnAccordion>
 
-      <PricingMultiTier
-        id="pricing"
-        headline="Cloud SWEET pricing built around your base platform and add-ons"
-        subheadline={
-          <p>
-            Start with the Cloud SWEET base platform, then add Real-Time Licensing or AI Licensing based on your
-            operational needs.
-          </p>
-        }
-        plans={
-          <>
-            <Plan
-              name="Base Platform"
-              price="Contact Sales"
-              subheadline={<p>Hosted call analytics with fast deployment and no extra hardware or software.</p>}
-              features={[
-                'Hosted interface available on any device',
-                'Instant call reporting after call completion',
-                'Drill-down from summary to detailed call events',
-                'Scheduled reports and automatic email delivery',
-                'Export to PDF or Excel',
-                'Unlimited user accounts with robust security',
-              ]}
-              cta={
-                <SoftButtonLink href="/schedule-demo" size="lg">
-                  Request quote
-                </SoftButtonLink>
-              }
-            />
-            <Plan
-              name="Real-Time Licensing Add-On"
-              price="Contact Sales"
-              subheadline={<p>Add live operational visibility for teams that need immediate queue and extension tracking.</p>}
-              badge="Popular add-on"
-              features={[
-                'Real-time display by extension and call center group',
-                'Live call volume and distribution monitoring',
-                'Supervisor alerts for service thresholds',
-                'Real-time graphs for proactive staffing decisions',
-              ]}
-              cta={
-                <SoftButtonLink href="/schedule-demo" size="lg">
-                  Add real-time
-                </SoftButtonLink>
-              }
-            />
-            <Plan
-              name="AI Licensing Add-On"
-              price="Contact Sales"
-              subheadline={<p>Add AI-powered summaries and trend detection to extend Cloud SWEET reporting workflows.</p>}
-              features={[
-                'AI-assisted trend summaries',
-                'Automated pattern recognition across call activity',
-                'Faster issue prioritization for supervisors',
-                'Extended planning insights for operations leaders',
-              ]}
-              cta={
-                <SoftButtonLink href="/schedule-demo" size="lg">
-                  Add AI licensing
-                </SoftButtonLink>
-              }
-            />
-          </>
-        }
-      />
+      <section id="pricing" className="py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <div className="rounded-2xl border border-[#d7e4ee] bg-white p-8 shadow-[0_8px_24px_rgb(18_52_88/10%)] sm:p-10">
+            <h2 className="text-3xl font-semibold tracking-tight text-[#015596] sm:text-4xl">Pricing and Package Guidance</h2>
+            <p className="mt-4 max-w-3xl text-base/7 text-[#4f6781]">
+              We align CloudSWEET by domain user tier and module selection, with usage-based components where
+              applicable. For package design and current pricing, talk to DATEL sales directly.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <SoftButtonLink href="/contact?team=sales#contact" size="lg">
+                Call DATEL for more information
+              </SoftButtonLink>
+              <ButtonLink href="/pricing" size="lg">
+                Open pricing sheet <ArrowNarrowRightIcon />
+              </ButtonLink>
+            </div>
+          </div>
+        </div>
+      </section>
 
     </>
   )

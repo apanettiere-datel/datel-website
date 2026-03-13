@@ -1,6 +1,8 @@
-import { SoftButtonLink } from '@/components/elements/button'
+import { ButtonLink, SoftButtonLink } from '@/components/elements/button'
+import { LogoutNavButton } from '@/components/elements/logout-nav-button'
 import { Main } from '@/components/elements/main'
 import { MobileNavAutoClose } from '@/components/elements/mobile-nav-auto-close'
+import { getAuthTokenCookieName } from '@/lib/auth-session'
 import {
   FooterCategory,
   FooterLink,
@@ -14,7 +16,7 @@ import {
   NavbarWithLinksActionsAndCenteredLogo,
 } from '@/components/sections/navbar-with-links-actions-and-centered-logo'
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { cookies } from 'next/headers'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -86,13 +88,45 @@ const contactMenu = [
     description: 'Book a guided product walkthrough with a DATEL specialist.',
     href: '/schedule-demo',
   },
+  {
+    name: 'Portal Login',
+    description: 'Sign in with your existing Cloud SWEET account credentials.',
+    href: '/login',
+  },
 ]
 
-export default function RootLayout({
+const resourcesMenu = [
+  {
+    name: 'Dashboard',
+    description: 'View reseller usage, monthly totals, and site-level rollups.',
+    href: '/dashboard',
+  },
+  {
+    name: 'Reseller Estimator',
+    description: 'Estimate monthly partner pricing from users, transcription volume, storage, and add-ons.',
+    href: '/estimator',
+  },
+  {
+    name: 'Pricing',
+    description: 'Review reseller partner pricing tiers and add-on rates based on the DATEL pricing sheet.',
+    href: '/reseller-pricing',
+  },
+  {
+    name: 'Documentation',
+    description: 'Access implementation guidance, configuration notes, and support docs.',
+    href: '/docs',
+  },
+]
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const cookieStore = await cookies()
+  const authToken = cookieStore.get(getAuthTokenCookieName())?.value?.trim() || ''
+  const isAuthenticated = authToken.length > 0
+
   return (
     <html lang="en">
       <head>
@@ -121,11 +155,15 @@ export default function RootLayout({
                   <NavbarMenu label="Solutions" items={solutionsMenu} panelClassName="w-[32rem]" />
                   <NavbarMenu label="Company" items={companyMenu} panelClassName="w-64" />
                   <NavbarMenu label="Contact" items={contactMenu} panelClassName="w-[30rem]" />
+                  {isAuthenticated ? <NavbarMenu label="Resources" items={resourcesMenu} panelClassName="w-[32rem]" /> : null}
 
                   <NavbarMobileMenuGroup title="Product" items={productMenu.map((item) => ({ name: item.name, href: item.href }))} />
                   <NavbarMobileMenuGroup title="Solutions" items={solutionsMenu.map((item) => ({ name: item.name, href: item.href }))} />
                   <NavbarMobileMenuGroup title="Company" items={companyMenu} />
                   <NavbarMobileMenuGroup title="Contact" items={contactMenu.map((item) => ({ name: item.name, href: item.href }))} />
+                  {isAuthenticated ? (
+                    <NavbarMobileMenuGroup title="Resources" items={resourcesMenu.map((item) => ({ name: item.name, href: item.href }))} />
+                  ) : null}
                 </>
               }
               logo={
@@ -141,15 +179,18 @@ export default function RootLayout({
               }
               actions={
                 <>
-                  <Link
-                    href="/docs"
-                    className="hidden text-sm/7 font-semibold text-[#123458] transition-colors hover:text-[#0e7c86] xl:inline-flex"
-                  >
-                    Resources
-                  </Link>
                   <SoftButtonLink href="/schedule-demo" className="hidden xl:inline-flex">
                     Request demo
                   </SoftButtonLink>
+                  {isAuthenticated ? (
+                    <>
+                      <LogoutNavButton />
+                    </>
+                  ) : (
+                    <ButtonLink href="/login" className="hidden xl:inline-flex">
+                      Login
+                    </ButtonLink>
+                  )}
                 </>
               }
             />

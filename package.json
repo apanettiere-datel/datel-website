@@ -27,6 +27,7 @@
     "@tailwindplus/elements": "0.0.0-insiders.98ea4bc",
     "clsx": "^2.1.1",
     "framer-motion": "^12.35.0",
+    "mysql2": "^3.19.1",
     "next": "^16",
     "react": "^19",
     "react-dom": "^19",

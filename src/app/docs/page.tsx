@@ -1,7 +1,9 @@
+import { Container } from '@/components/elements/container'
+
 export default function Page() {
   return (
     <section className="py-16">
-      <div className="mx-auto max-w-4xl px-6 lg:px-8">
+      <Container>
         <div className="rounded-2xl border border-[#d7e4ee] bg-white p-8 shadow-[0_8px_24px_rgb(18_52_88/10%)]">
           <h1 className="text-3xl font-semibold tracking-tight text-[#015596] sm:text-4xl">Documentation and enablement</h1>
           <p className="mt-4 text-base/7 text-[#4f6781]">
@@ -23,7 +25,7 @@ export default function Page() {
             .
           </p>
         </div>
-      </div>
+      </Container>
     </section>
   )
 }
