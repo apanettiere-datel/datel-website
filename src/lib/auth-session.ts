@@ -8,7 +8,7 @@ const DEFAULT_COOKIE_PATH = '/'
 const DEFAULT_COOKIE_SAME_SITE = 'lax'
 const DEFAULT_LOGIN_PATH = '/login'
 const DEFAULT_POST_LOGIN_REDIRECT_PATH = '/dashboard'
-const REQUIRED_PROTECTED_PATH_PREFIXES = ['/dashboard', '/accounting', '/docs', '/estimator', '/reseller-pricing']
+const DEFAULT_PROTECTED_PATH_PREFIXES: string[] = []
 
 export function normalizeValue(value: unknown) {
   return String(value ?? '').trim()
@@ -69,12 +69,8 @@ export function getDefaultLoginType() {
 
 export function getProtectedPathPrefixes() {
   const configured = normalizeValue(process.env.AUTH_PROTECTED_PATH_PREFIXES)
-  const values = configured
-    ? configured.split(',').map((item) => normalizePathValue(item, '')).filter(Boolean)
-    : REQUIRED_PROTECTED_PATH_PREFIXES
-
-  const merged = [...new Set([...REQUIRED_PROTECTED_PATH_PREFIXES, ...values])]
-  return merged.length > 0 ? merged : REQUIRED_PROTECTED_PATH_PREFIXES
+  if (!configured) return DEFAULT_PROTECTED_PATH_PREFIXES
+  return [...new Set(configured.split(',').map((item) => normalizePathValue(item, '')).filter(Boolean))]
 }
 
 export function getAuthTokenCookieName() {

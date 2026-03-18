@@ -1,5 +1,5 @@
-import { ResellerPriceEstimatorSection } from '@/components/sections/reseller-price-estimator-section'
+import { redirect } from 'next/navigation'
 
 export default function Page() {
-  return <ResellerPriceEstimatorSection />
+  redirect('/')
 }
