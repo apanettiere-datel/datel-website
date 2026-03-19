@@ -1,6 +1,7 @@
 'use client'
 
 import Script from 'next/script'
+import Link from 'next/link'
 import { type FormEvent, useMemo, useState } from 'react'
 import { MotionReveal } from '../elements/motion'
 
@@ -293,9 +294,9 @@ export function ScheduleDemoSection() {
                 </div>
                 <label htmlFor="agree-to-policies" className="text-sm/6 text-[#4f6781]">
                   By selecting this, you agree to our{' '}
-                  <a href="/privacy-policy" className="font-semibold whitespace-nowrap text-[#0e7c86]">
+                  <Link href="/privacy-policy" className="font-semibold whitespace-nowrap text-[#0e7c86]">
                     privacy policy
-                  </a>
+                  </Link>
                   .
                 </label>
               </div>
