@@ -35,39 +35,31 @@ export function ScheduleDemoSection() {
     const timezone = getValue(formData, 'timezone')
     const message = getValue(formData, 'message')
     const website = getValue(formData, 'website')
-    const captchaToken = getValue(formData, 'cf-turnstile-response')
 
     setSubmitting(true)
     setErrorMessage(null)
     setSubmitted(false)
 
     try {
-      const response = await fetch('/api/schedule-demo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          company,
-          email,
-          country,
-          phoneNumber,
-          preferredDate,
-          preferredTime,
-          timezone,
-          message,
-          website,
-          submittedAt: startedAt,
-          captchaToken,
-        }),
-      })
+      const subject = `Demo request from ${firstName} ${lastName}`.trim()
+      const body = [
+        `First name: ${firstName}`,
+        `Last name: ${lastName}`,
+        `Company: ${company}`,
+        `Email: ${email}`,
+        `Country code: ${country || 'N/A'}`,
+        `Phone: ${phoneNumber || 'N/A'}`,
+        `Preferred date: ${preferredDate}`,
+        `Preferred time: ${preferredTime}`,
+        `Timezone: ${timezone || 'N/A'}`,
+        '',
+        'Message:',
+        message || '(No message provided)',
+        '',
+        `Honeypot website value: ${website || '(empty)'}`,
+      ].join('\n')
 
-      if (!response.ok) {
-        const body = (await response.json().catch(() => null)) as { error?: string } | null
-        throw new Error(body?.error || 'Unable to send your demo request right now.')
-      }
+      window.location.href = `mailto:sales@datel-group.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 
       setSubmitted(true)
       form.reset()

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="385" height="106" viewBox="0 0 385 106" role="img" aria-label="Food For The Poor, Inc.">
+  <rect width="385" height="106" fill="#ffffff"/>
+  <rect x="1" y="1" width="383" height="104" rx="8" fill="#ffffff" stroke="#d7dee4"/>
+  <rect x="12" y="25" width="58" height="38" fill="#1672b8"/>
+  <path d="M20 44c8-8 16-8 24 0s16 8 24 0" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+  <text x="80" y="56" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#1161a8">FOOD FOR THE POOR, INC.</text>
+</svg>

@@ -369,31 +369,13 @@ function editionPlans(option: EditionOption) {
   )
 }
 
-type PageProps = {
-  searchParams?: Promise<{
-    edition?: string | string[]
-  }>
-}
-
-function resolveInitialEdition(rawEdition: string | string[] | undefined): EditionOption | undefined {
-  const value = Array.isArray(rawEdition) ? rawEdition[0] : rawEdition
-  const normalized = value?.toLowerCase()
-
-  if (!normalized) return undefined
-  if (normalized === 'standard' || normalized === 'standard-edition') return 'Standard Edition'
-  if (normalized === 'small-business' || normalized === 'smallbusiness' || normalized === 'small-business-edition') return 'Small Business Edition'
-  if (normalized === 'enterprise' || normalized === 'enterprise-edition') return 'Enterprise Edition'
-  return undefined
-}
-
-export default async function Page({ searchParams }: PageProps) {
-  const resolvedSearchParams = await searchParams
+export default function Page() {
   const plansByOption: Record<EditionOption, ReactNode> = {
     'Standard Edition': editionPlans('Standard Edition'),
     'Small Business Edition': editionPlans('Small Business Edition'),
     'Enterprise Edition': editionPlans('Enterprise Edition'),
   }
-  const initialEdition = resolveInitialEdition(resolvedSearchParams?.edition)
+  const initialEdition: EditionOption | undefined = undefined
 
   return (
     <>

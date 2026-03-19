@@ -74,35 +74,28 @@ export function ContactSalesSection() {
     const phone = getValue(formData, 'phone')
     const message = getValue(formData, 'message')
     const website = getValue(formData, 'website')
-    const captchaToken = getValue(formData, 'cf-turnstile-response')
 
     setSubmitting(true)
     setErrorMessage(null)
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          team: selectedTeam,
-          firstName,
-          lastName,
-          company,
-          email,
-          phone,
-          message,
-          website,
-          submittedAt: startedAt,
-          captchaToken,
-        }),
-      })
+      const recipient = selectedTeam === 'support' ? 'support@datel-group.com' : 'sales@datel-group.com'
+      const subject = `${activeTeam.label} request from ${firstName} ${lastName}`.trim()
+      const body = [
+        `Team: ${activeTeam.label}`,
+        `First name: ${firstName}`,
+        `Last name: ${lastName}`,
+        `Company: ${company}`,
+        `Email: ${email}`,
+        `Phone: ${phone || 'N/A'}`,
+        '',
+        'Message:',
+        message || '(No message provided)',
+        '',
+        `Honeypot website value: ${website || '(empty)'}`,
+      ].join('\n')
 
-      if (!response.ok) {
-        const body = (await response.json().catch(() => null)) as { error?: string } | null
-        throw new Error(body?.error || 'Unable to send your message right now.')
-      }
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 
       setSubmitted(true)
       form.reset()
