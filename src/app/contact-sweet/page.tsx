@@ -1,5 +1,4 @@
 import { ElTabGroup, ElTabList, ElTabPanels } from '@tailwindplus/elements/react'
-import Image from 'next/image'
 import type { ReactNode } from 'react'
 
 import { ButtonLink, SoftButtonLink } from '@/components/elements/button'
@@ -503,17 +502,17 @@ export default function Page() {
 
       <section id="recording" className="py-8 sm:py-10">
         <Container>
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-            <MotionReveal className="lg:pr-8" amount={0.15}>
+          <div className="mx-auto max-w-4xl">
+            <MotionReveal className="text-center" amount={0.15}>
               <p className="text-sm/6 font-semibold tracking-wide text-[#0e7c86] uppercase">Cradle-to-grave recording</p>
               <h2 className="mt-2 text-4xl/11 font-semibold tracking-tight text-[#015596] sm:text-5xl/13">
                 Contact SWEET captures the full customer interaction trail for legacy and compliance-heavy operations
               </h2>
-              <p className="mt-6 text-base/7 text-[#4f6781]">
+              <p className="mx-auto mt-6 max-w-3xl text-base/7 text-[#4f6781]">
                 Combine Contact SWEET workflows with recording visibility so teams can review complete call histories, resolve disputes faster, and coach with better context.
               </p>
 
-              <dl className="mt-8 space-y-4">
+              <dl className="mx-auto mt-8 max-w-3xl space-y-4 text-left">
                 {cradleToGraveDetails.map((feature, index) => (
                   <MotionReveal key={feature.name} delay={0.06 + index * 0.05} y={14} amount={0.2}>
                     <div className="relative rounded-xl border border-[#d7e4ee] bg-white p-4 pl-11 shadow-[0_8px_24px_rgb(18_52_88/8%)]">
@@ -526,20 +525,6 @@ export default function Page() {
                   </MotionReveal>
                 ))}
               </dl>
-            </MotionReveal>
-
-            <MotionReveal delay={0.12} y={20} amount={0.18}>
-              <div className="-m-2 rounded-[1.75rem] bg-[#123458]/7 p-2 ring-1 ring-[#123458]/12">
-                <div className="overflow-hidden rounded-[1.25rem] border border-[#d7e4ee] bg-white">
-                  <Image
-                    src="/img/screenshots/ctg.svg"
-                    alt="Contact SWEET cradle-to-grave recording analytics view"
-                    width={1350}
-                    height={900}
-                    className="h-auto w-full scale-[1.2] sm:scale-[1.05]"
-                  />
-                </div>
-              </div>
             </MotionReveal>
           </div>
         </Container>

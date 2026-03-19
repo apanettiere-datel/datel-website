@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="385" height="106" viewBox="0 0 385 106" role="img" aria-label="Online Vacation Center">
+  <rect width="385" height="106" fill="#ffffff"/>
+  <circle cx="72" cy="48" r="34" fill="#36b24a"/>
+  <ellipse cx="72" cy="48" rx="40" ry="16" fill="none" stroke="#1ea0e0" stroke-width="6"/>
+  <text x="122" y="58" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#1ea0e0">Online</text>
+  <text x="122" y="86" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#123458">Vacation Center</text>
+</svg>
