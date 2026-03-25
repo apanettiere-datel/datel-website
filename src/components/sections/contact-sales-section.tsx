@@ -73,7 +73,6 @@ export function ContactSalesSection() {
     const email = getValue(formData, 'email')
     const phone = getValue(formData, 'phone')
     const message = getValue(formData, 'message')
-    const website = getValue(formData, 'website')
 
     setSubmitting(true)
     setErrorMessage(null)
@@ -91,8 +90,6 @@ export function ContactSalesSection() {
         '',
         'Message:',
         message || '(No message provided)',
-        '',
-        `Honeypot website value: ${website || '(empty)'}`,
       ].join('\n')
 
       window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`

@@ -35,7 +35,6 @@ export function ScheduleDemoSection() {
     const preferredTime = getValue(formData, 'preferred-time')
     const timezone = getValue(formData, 'timezone')
     const message = getValue(formData, 'message')
-    const website = getValue(formData, 'website')
 
     setSubmitting(true)
     setErrorMessage(null)
@@ -56,8 +55,6 @@ export function ScheduleDemoSection() {
         '',
         'Message:',
         message || '(No message provided)',
-        '',
-        `Honeypot website value: ${website || '(empty)'}`,
       ].join('\n')
 
       window.location.href = `mailto:sales@datel-group.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
