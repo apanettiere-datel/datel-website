@@ -252,7 +252,7 @@ export default function Page() {
         <Container>
           <MotionReveal className="mx-auto max-w-4xl text-center lg:max-w-5xl" amount={0.15}>
             <img
-              src="https://www.datel-group.com/wp-content/uploads/2015/05/Cloud-Sweet-Watermark.png"
+              src="/img/logos/cloud-sweet-v2.png"
               width="280"
               height="500"
               alt="Cloud SWEET logo"

@@ -71,7 +71,7 @@ export default function Page() {
           <div className="pointer-events-none absolute -left-20 bottom-[-3rem] h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(73,214,200,0.16)_0%,rgba(73,214,200,0)_68%)]" />
 
           <img
-            src="https://www.datel-group.com/wp-content/uploads/2015/05/datel-logo-retina-display1.png"
+            src="/img/logos/datel-logo-v2.png"
             width="120"
             height="404"
             alt="Datel Group"

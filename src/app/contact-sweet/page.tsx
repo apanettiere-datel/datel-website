@@ -383,7 +383,7 @@ export default function Page() {
         eyebrow={
           <div className="flex flex-col items-center gap-3">
             <img
-              src="https://www.datel-group.com/wp-content/uploads/2015/06/ctsw.png"
+              src="/img/logos/ctsw-v2.png"
               width="120"
               height="150"
               alt="Contact SWEET logo"

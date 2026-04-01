@@ -1,0 +1,5 @@
+:HL["/_next/static/chunks/fd1fa16b6c7213ab.css","style"]
+:HL["https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap","style"]
+:HL["https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap","style"]
+:HL["/img/logos/datel-logo-v2.png","image"]
+0:{"buildId":"7gzVTTQlpK2UgmetBkPYs","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"about","paramType":null,"paramKey":"about","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}

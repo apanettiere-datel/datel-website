@@ -130,7 +130,7 @@ export default function RootLayout({
               logo={
                 <NavbarLogo href="/" className="px-0 py-0">
                   <img
-                    src="https://www.datel-group.com/wp-content/uploads/2015/05/datel-logo-retina-display1.png"
+                    src="/img/logos/datel-logo-v2.png"
                     width="404"
                     height="120"
                     alt="Datel Group"

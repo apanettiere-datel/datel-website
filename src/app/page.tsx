@@ -18,7 +18,7 @@ export default function Page() {
         eyebrow={
           <div className="flex flex-col items-start gap-4">
             <img
-              src="https://www.datel-group.com/wp-content/uploads/2015/05/Cloud-Sweet-Watermark.png"
+              src="/img/logos/cloud-sweet-v2.png"
               width="280"
               height="500"
               alt="Cloud SWEET logo"

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="371" height="101" viewBox="0 0 371 101" role="img" aria-labelledby="title desc">
+  <title id="title">Crown Wallpaper and Fabrics logo</title>
+  <desc id="desc">Crown Wallpaper and Fabrics wordmark with purple icon</desc>
+  <rect x="0.5" y="0.5" width="370" height="100" fill="#ffffff" stroke="#c8c8c8"/>
+  <rect x="1" y="1" width="99" height="99" fill="#a01a8e"/>
+  <g fill="#ffffff" transform="translate(14 16)">
+    <path d="M6 34c0-9 7-16 16-16 9 0 16 7 16 16v2H6z"/>
+    <path d="M38 34c0-9 7-16 16-16 9 0 16 7 16 16v2H38z"/>
+    <path d="M22 22 32 8 42 22z"/>
+  </g>
+  <text x="116" y="56" font-family="Arial, Helvetica, sans-serif" font-size="62" letter-spacing="3" fill="#7a7f86">CROWN</text>
+  <text x="118" y="88" font-family="Arial, Helvetica, sans-serif" font-size="18" letter-spacing="4" fill="#545b63">WALLPAPER &amp; FABRICS</text>
+</svg>
