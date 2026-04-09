@@ -54,10 +54,10 @@ export const DOMAIN_USER_TIERS: DomainUserTier[] = [
     label: '101 to 200 users',
     minUsers: 101,
     maxUsers: 200,
-    reportingProduct: 'H4004',
+    reportingProduct: 'H4011',
     reportingPartnerMonthly: 45,
     reportingListMonthly: 90,
-    recordingProduct: 'H4004CRE',
+    recordingProduct: 'H4011CRE',
     recordingPartnerMonthly: 12,
     recordingListMonthly: 30,
   },
@@ -141,11 +141,7 @@ export const DOMAIN_USER_TIERS: DomainUserTier[] = [
 ]
 
 export const TRANSCRIPTION_TIERS: TranscriptionTier[] = [
-  { maxHours: 1000, rate: 0.23, label: 'Up to 1,000 hrs' },
-  { maxHours: 5000, rate: 0.21, label: 'Up to 5,000 hrs' },
-  { maxHours: 10000, rate: 0.19, label: 'Up to 10,000 hrs' },
-  { maxHours: 30000, rate: 0.19, label: '10,001 to 30,000 hrs' },
-  { maxHours: Number.POSITIVE_INFINITY, rate: 0.17, label: '30,001+ hrs' },
+  { maxHours: Number.POSITIVE_INFINITY, rate: 0.23, label: 'Usage-sensitive rate' },
 ]
 
 export const STORAGE_BASE_HOURS = 2000
@@ -155,8 +151,11 @@ export const STORAGE_BLOCK_PRICE = 1
 
 export const REAL_TIME_AGENT_RATE = 4
 export const REAL_TIME_MIN_AGENTS = 5
-export const SENTIMENT_INTRO_RATE = 8
+export const SENTIMENT_INTRO_RATE = 24
 export const SENTIMENT_STANDARD_RATE = 13
+export const PREMIUM_PARTNER_MIN_DOMAINS = 10
+export const PREMIUM_PARTNER_DOMAIN_RATE = 2.85
+export const PREMIUM_PARTNER_USAGE_RATE_PER_1000_CALLS = 1.59
 
 export function clampToNonNegativeNumber(value: number) {
   return Number.isFinite(value) && value > 0 ? value : 0
@@ -191,6 +190,24 @@ export function estimateStorageMonthlyCost(hours: number) {
 export function estimateTranscriptionMonthlyCost(hours: number) {
   const tier = getTranscriptionTierForHours(hours)
   return roundCurrency(clampToNonNegativeNumber(hours) * tier.rate)
+}
+
+export function estimatePremiumPartnerMonthlyCost(input: { domains: number; callRecords: number }) {
+  const normalizedDomains = Math.floor(clampToNonNegativeNumber(input.domains))
+  const normalizedCallRecords = clampToNonNegativeNumber(input.callRecords)
+
+  const domainCharge = roundCurrency(normalizedDomains * PREMIUM_PARTNER_DOMAIN_RATE)
+  const aggregateUsageCharge = roundCurrency((normalizedCallRecords / 1000) * PREMIUM_PARTNER_USAGE_RATE_PER_1000_CALLS)
+  const monthlyTotal = roundCurrency(domainCharge + aggregateUsageCharge)
+
+  return {
+    domains: normalizedDomains,
+    callRecords: normalizedCallRecords,
+    minimumDomainsMet: normalizedDomains >= PREMIUM_PARTNER_MIN_DOMAINS,
+    domainCharge,
+    aggregateUsageCharge,
+    monthlyTotal,
+  }
 }
 
 export function estimateSiteBundleCosts(input: { users: number; transcriptionHours: number; storageHours: number }) {

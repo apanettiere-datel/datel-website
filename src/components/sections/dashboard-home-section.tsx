@@ -2,6 +2,8 @@
 
 import { Button } from '@/components/elements/button'
 import { Container } from '@/components/elements/container'
+import { ResellerPriceEstimatorSection } from '@/components/sections/reseller-price-estimator-section'
+import { ResellerPricingDocsSection } from '@/components/sections/reseller-pricing-docs-section'
 import { estimateSiteBundleCosts } from '@/lib/cloudsweet-pricing'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
@@ -75,6 +77,7 @@ type UsageError = {
 
 type ExportFormat = 'excel' | 'pdf'
 type UsageFilterMode = 'month' | 'ytd' | 'custom'
+type DashboardTab = 'usage' | 'pricing' | 'docs'
 
 type UsageFilter = {
   mode: UsageFilterMode
@@ -198,6 +201,7 @@ function resolveDownloadName(contentDisposition: string | null, fallback: string
 }
 
 export function DashboardHomeSection() {
+  const [activeTab, setActiveTab] = useState<DashboardTab>('usage')
   const [loading, setLoading] = useState(true)
   const [exporting, setExporting] = useState<ExportFormat | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -377,7 +381,41 @@ export function DashboardHomeSection() {
   return (
     <section className="relative isolate py-12 sm:py-16">
       <Container>
-        <div className="w-full rounded-[var(--radius-card)] border border-[#d9ece6] bg-white/96 p-6 shadow-[0_24px_56px_rgb(18_52_88/10%)] sm:p-10">
+        <div className="mb-6 rounded-[var(--radius-card)] border border-[#d7e4ee] bg-white/96 p-5 shadow-[0_8px_24px_rgb(18_52_88/8%)] sm:p-6">
+          <p className="text-xs font-semibold tracking-[0.12em] text-[#0e7c86] uppercase">Reseller Dashboard</p>
+          <div className="mt-3 inline-flex rounded-full border border-[#d7e4ee] bg-[#f4f8fb] p-1">
+            <button
+              type="button"
+              onClick={() => setActiveTab('usage')}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                activeTab === 'usage' ? 'bg-[#015596] text-white' : 'text-[#123458] hover:bg-[#e8f1f8]'
+              }`}
+            >
+              Usage
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('pricing')}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                activeTab === 'pricing' ? 'bg-[#015596] text-white' : 'text-[#123458] hover:bg-[#e8f1f8]'
+              }`}
+            >
+              Pricing Calculator
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('docs')}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                activeTab === 'docs' ? 'bg-[#015596] text-white' : 'text-[#123458] hover:bg-[#e8f1f8]'
+              }`}
+            >
+              Documentation
+            </button>
+          </div>
+        </div>
+
+        {activeTab === 'usage' && (
+          <div className="w-full rounded-[var(--radius-card)] border border-[#d9ece6] bg-white/96 p-6 shadow-[0_24px_56px_rgb(18_52_88/10%)] sm:p-10">
         <div className="mx-auto flex max-w-5xl flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h1 className="text-4xl font-semibold tracking-tight text-balance text-[#015596] sm:text-5xl">Usage Dashboard</h1>
@@ -720,7 +758,12 @@ export function DashboardHomeSection() {
             No usage data available.
           </div>
         )}
-        </div>
+          </div>
+        )}
+
+        {activeTab === 'pricing' && <ResellerPriceEstimatorSection embedded />}
+
+        {activeTab === 'docs' && <ResellerPricingDocsSection embedded />}
       </Container>
     </section>
   )

@@ -1,4 +1,4 @@
-import { SoftButtonLink } from '@/components/elements/button'
+import { ButtonLink, SoftButtonLink } from '@/components/elements/button'
 import { Main } from '@/components/elements/main'
 import { MobileNavAutoClose } from '@/components/elements/mobile-nav-auto-close'
 import {
@@ -69,6 +69,8 @@ const companyMenu = [
   { name: 'Privacy policy', href: '/privacy-policy' },
 ]
 
+const resellerPortalUrl = String(process.env.NEXT_PUBLIC_RESELLER_PORTAL_URL ?? 'https://reseller.cloudsweet.net/login').trim() || 'https://reseller.cloudsweet.net/login'
+
 const contactMenu = [
   {
     name: 'Contact Sales',
@@ -84,6 +86,11 @@ const contactMenu = [
     name: 'Request a Demo',
     description: 'Book a guided product walkthrough with a DATEL specialist.',
     href: '/schedule-demo',
+  },
+  {
+    name: 'Reseller Login',
+    description: 'Open the reseller portal login.',
+    href: resellerPortalUrl,
   },
 ]
 
@@ -140,6 +147,9 @@ export default function RootLayout({
               }
               actions={
                 <>
+                  <ButtonLink href={resellerPortalUrl} color="light" className="hidden xl:inline-flex">
+                    Reseller Login
+                  </ButtonLink>
                   <SoftButtonLink href="/schedule-demo" className="hidden xl:inline-flex">
                     Request demo
                   </SoftButtonLink>
